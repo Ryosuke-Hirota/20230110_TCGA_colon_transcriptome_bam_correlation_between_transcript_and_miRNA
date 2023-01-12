@@ -25,12 +25,12 @@ cal.min <-function(x){
   return(m)
 }
 
-# inport correspondence table between TCGA colon transcriptome bam and TCGA colon miRNA quantification file
+# import correspondence table between TCGA colon transcriptome bam and TCGA colon miRNA quantification file
 # this table is located at "https://github.com/Ryosuke-Hirota/20221124_make_table_of_TCGA_transcriptome_bam_correspond_to_TCGA_miRNA_expression_data"
 setwd("C:/Rdata/20221124_make_table_of_TCGA_transcriptome_bam_correspond_to_TCGA_miRNA_expression_data")
 cor.table <-read.table("correspondence_table_between_TCGA_colon_transcriptome_bam_and_miRNA_qunatification_file.txt",sep="\t",header = T,stringsAsFactors = F)
 
-# inport list of transcripts that intersect with miRNAs in gencode v36
+# import list of transcripts that intersect with miRNAs in gencode v36
 # this list is located at "https://github.com/Ryosuke-Hirota/20230110_TCGA_colon_transcriptome_bam_correlation_between_transcript_and_miRNA"
 setwd("C:/Rdata")
 primir.list <-read.table("TCGA_hg38_transcript_intersect_with_miRNA.txt",sep="\t",header = F,stringsAsFactors = F)
@@ -119,7 +119,7 @@ for (i in 1:nrow(mir_transcipt)){
   miRNA.df <-miRNA.df[-1,]
   
   # extract expression level of a certain transcript
-  transcript <-primir.list[primir.list[,2]==mir_transcipt[i,2],3]
+  transcript <-primir.list[primir.list[,1]==mir_transcipt[i,1]&primir.list[,2]==mir_transcipt[i,2],3]
   t <-match(transcript,transcript.quant.table[,1])
   transcript.df <-transcript.quant.table[t,]
   transcript.df <-transcript.df[,-1]
